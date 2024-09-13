@@ -5,15 +5,20 @@ import Pokemon from './components/pokemon'
 function App() {
  return (
     <div>
-        {/* <Pokemon id="11"/> */}
         <List/>
     </div>
  )
 }
 
 function Card({ children }) {
+    const [selectedCard, setSelectedCard] = useState(false)
+
+    function handleClick() {
+        setSelectedCard(true)
+    }
     return (
-        <div className="card">
+        <div className="card" onClick={handleClick}>
+            <p>{selectedCard && "Yay"}</p>
             {children}
         </div>
     );
