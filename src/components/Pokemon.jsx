@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 
-const Pokemon=()=> {
+const Pokemon=(props)=> {
     const [pokemonInfo, setPokemonInfo] = useState('')
 
     useEffect(()=> {
         async function fetchPokemon(){
             try{
-                let res = await fetch('https://pokeapi.co/api/v2/pokemon/ditto')
+                let res = await fetch(`https://pokeapi.co/api/v2/pokemon/${props.id}`)
                 let pokemon_data = await res.json()
                 setPokemonInfo(pokemon_data)
             }
