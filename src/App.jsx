@@ -2,6 +2,9 @@ import { useState } from 'react'
 import './App.css'
 import Pokemon from './components/pokemon'
 
+const TOTAL_POKEMON = 20
+const NUM_OF_POKEMON_TO_SHOW = 5
+
 function App() {
 
     const [currentScore, setCurrentScore] = useState(0)
@@ -24,7 +27,7 @@ function App() {
 
 
 function Gameboard({updateScore, resetScore}) {
-    const pokemonObj = {1:false, 2:false, 3:false, 4:false}
+    const pokemonObj = setupPokemon(TOTAL_POKEMON)
 
     const [showPokemon, setShowPokemon] = useState(pokemonObj)
 
@@ -36,17 +39,27 @@ function Gameboard({updateScore, resetScore}) {
         </li>
     );
 
-    function selectRandomPokemonIDs(amount = 2) {
+    function selectRandomPokemonIDs(amount = 5) {
         const randomPokemon = []
         const keys = Object.keys(pokemonObj)
 
-        while (randomPokemon.length < amount) {
+        while (randomPokemon.length < NUM_OF_POKEMON_TO_SHOW) {
             const randomID = keys[Math.floor(Math.random() * keys.length)];
             
             if (!randomPokemon.includes(randomID)) randomPokemon.push(randomID)
         }
 
         return randomPokemon
+    }
+
+    function setupPokemon(amount = 20) {
+        const result = {}
+
+        for (let i = 1; i < amount; i++) {
+            result[i] = false
+        }
+
+        return result
     }
 
     function selectRandomPokemon() {
