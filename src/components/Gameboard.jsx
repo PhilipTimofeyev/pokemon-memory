@@ -2,8 +2,8 @@ import { useState } from 'react'
 import PokemonCard from '../components/PokemonCard'
 import Pokemon from '../components/pokemon'
 
-const TOTAL_POKEMON = 20
-const NUM_OF_POKEMON_TO_SHOW = 5
+const TOTAL_POKEMON = 50
+const NUM_OF_POKEMON_TO_SHOW = 16
 
 export default function Gameboard({ updateScore, resetScore }) {
     const pokemonObj = setupPokemon(TOTAL_POKEMON)
@@ -18,20 +18,19 @@ export default function Gameboard({ updateScore, resetScore }) {
         </li>
     );
 
-    function selectRandomPokemonIDs(amount = 5) {
+    function selectRandomPokemonIDs(amount = NUM_OF_POKEMON_TO_SHOW) {
         const randomPokemon = []
         const keys = Object.keys(pokemonObj)
 
-        while (randomPokemon.length < NUM_OF_POKEMON_TO_SHOW) {
+        while (randomPokemon.length < amount) {
             const randomID = keys[Math.floor(Math.random() * keys.length)];
 
             if (!randomPokemon.includes(randomID)) randomPokemon.push(randomID)
         }
-
         return randomPokemon
     }
 
-    function setupPokemon(amount = 20) {
+    function setupPokemon(amount = TOTAL_POKEMON) {
         const result = {}
 
         for (let i = 1; i < amount; i++) {
@@ -48,12 +47,11 @@ export default function Gameboard({ updateScore, resetScore }) {
         for (const [key, value] of Object.entries(showPokemon)) {
             if (randomIDArr.includes(key)) newRandomSet[key] = value
         }
-
+        console.log(newRandomSet)
         return newRandomSet
     }
 
     function newPokemonSet(e) {
-        // console.log(e)
         let newSet
 
         if (showPokemon[e]) {
@@ -69,5 +67,5 @@ export default function Gameboard({ updateScore, resetScore }) {
 
     }
 
-    return <ul>{pokemon}</ul>;
+    return <ul className='cards'>{pokemon}</ul>;
 }
