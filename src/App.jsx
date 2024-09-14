@@ -3,15 +3,27 @@ import './App.css'
 import Pokemon from './components/pokemon'
 
 function App() {
- return (
-    <div>
-        <List/>
-    </div>
+
+    const [currentScore, setCurrentScore] = useState(0)
+
+    function updateScore() {
+        setCurrentScore(currentScore + 1)
+    }
+
+    function resetScore() {
+        setCurrentScore(0)
+    }
+
+    return (
+        <div>
+            <Score currentScore={currentScore}/>
+            <Gameboard updateScore={updateScore} resetScore={resetScore} />
+        </div>
  )
 }
 
 
-function List() {
+function Gameboard({updateScore, resetScore}) {
     const pokemonObj = {1:false, 2:false, 3:false, 4:false}
 
     const [showPokemon, setShowPokemon] = useState(pokemonObj)
@@ -25,20 +37,22 @@ function List() {
         </li>
     );
 
-    console.log(showPokemon)
+    // console.log(showPokemon)
     
     function newPokemonSet(e) {
 
-        console.log(e)
+        // console.log(e)
         let newSet
         
         if (showPokemon[e]) {
             newSet = { ...showPokemon }
+            resetScore()
             // reset current score
             // reset high score
             newSet = pokemonObj
         } else {
             newSet = { ...showPokemon, [e]: true }
+            updateScore()
             // add point to score
         }
 
@@ -61,6 +75,13 @@ function Card({children, isSelected, pokemonID, click}) {
             {children}
         </div>
     );
+}
+
+function Score({currentScore}) {
+
+    return (
+        <h1>Score: {currentScore}</h1>
+    )
 }
 
 export default App
