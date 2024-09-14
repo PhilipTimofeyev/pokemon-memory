@@ -28,8 +28,7 @@ function Gameboard({updateScore, resetScore}) {
 
     const [showPokemon, setShowPokemon] = useState(pokemonObj)
 
-    
-    const pokemon = Object.entries(showPokemon).map(([pokemonID, selected]) =>
+    const pokemon = Object.entries(selectRandomPokemon()).map(([pokemonID, selected]) =>
         <li key={pokemonID}>
             <Card click={newPokemonSet} isSelected={selected} pokemonID={pokemonID}>
                 <Pokemon id={pokemonID} />
@@ -37,23 +36,41 @@ function Gameboard({updateScore, resetScore}) {
         </li>
     );
 
-    // console.log(showPokemon)
+    function selectRandomPokemonIDs(amount = 2) {
+        const randomPokemon = []
+        const keys = Object.keys(pokemonObj)
+
+        while (randomPokemon.length < amount) {
+            const randomID = keys[Math.floor(Math.random() * keys.length)];
+            
+            if (!randomPokemon.includes(randomID)) randomPokemon.push(randomID)
+        }
+
+        return randomPokemon
+    }
+
+    function selectRandomPokemon() {
+        const newRandomSet = {}
+        const randomIDArr = selectRandomPokemonIDs()
+        
+        for (const [key, value] of Object.entries(showPokemon)) {
+            if (randomIDArr.includes(key)) newRandomSet[key] = value
+        }
+
+        return newRandomSet
+    }
     
     function newPokemonSet(e) {
-
         // console.log(e)
         let newSet
         
         if (showPokemon[e]) {
             newSet = { ...showPokemon }
             resetScore()
-            // reset current score
-            // reset high score
             newSet = pokemonObj
         } else {
             newSet = { ...showPokemon, [e]: true }
             updateScore()
-            // add point to score
         }
 
         setShowPokemon(newSet)
