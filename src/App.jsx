@@ -12,72 +12,52 @@ function App() {
 
 
 function List() {
-    // let [pokemon, setPokemon] = useState([])
-    const randomNums = [1, 2, 3, 4, 5, 6]
+    const pokemonObj = {1:false, 2:false, 3:false, 4:false}
 
+    const [showPokemon, setShowPokemon] = useState(pokemonObj)
 
-    const pokemon = [1, 2, 3, 4, 5, 6].map(pokemonID =>
+    
+    const pokemon = Object.entries(showPokemon).map(([pokemonID, selected]) =>
         <li key={pokemonID}>
-            <Card click={newPokemonSet}>
+            <Card click={newPokemonSet} isSelected={selected} pokemonID={pokemonID}>
                 <Pokemon id={pokemonID} />
             </Card>
         </li>
     );
 
-    const [showPokemon, setShowPokemon] = useState(pokemon)
-
-    function newPokemonSet() {
-        const randomElement = randomNums[Math.floor(Math.random() * randomNums.length)];
-
-        console.log([randomElement])
-
-        const pokemonVisible = pokemon.filter((poke) => {
-            return [randomElement].includes(parseInt(poke.key))
-        })
-
-        setShowPokemon([pokemonVisible])
-    }
-
-
-    // function reset() {
-    //     console.log("yay")
-    //     setPokemon(pokemon)
-    // }
-
-
-    // setPokemon(listItems)
-
-    // function clearSelected() {
-    //     listItems.forEach((el) => 
-    //     console.log(el.props)
-    // )
-    // }
-
-    // clearSelected()
+    console.log(showPokemon)
     
-    return <ul>{showPokemon}</ul>;
+    function newPokemonSet(e) {
+
+        console.log(e)
+        let newSet
+        
+        if (showPokemon[e]) {
+            newSet = { ...showPokemon }
+            // reset current score
+            // reset high score
+            newSet = pokemonObj
+        } else {
+            newSet = { ...showPokemon, [e]: true }
+            // add point to score
+        }
+
+        setShowPokemon(newSet)
+    
+    }
+    
+    return <ul>{pokemon}</ul>;
 }
 
-function Card({children, click}) {
-    const [selectedCard, setSelectedCard] = useState(false)
+function Card({children, isSelected, pokemonID, click}) {
 
     function handleClick() {
-        if (selectedCard) {
-            console.log("Double Yay")
-            // Change current score to 0
-            // Reset all cards to false
-            // reset
-        } else {
-            // add one to current best
-            click()
-            console.log("Yay")
-            // setSelectedCard(true)
-        }
+        click(pokemonID)
     }
 
     return (
         <div className="card" onClick={handleClick}>
-            <p>{selectedCard && "Yay"}</p>
+            <p>{isSelected && "Yay"}</p>
             {children}
         </div>
     );
