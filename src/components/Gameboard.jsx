@@ -2,21 +2,38 @@ import { useState } from 'react'
 import PokemonCard from '../components/PokemonCard'
 import Pokemon from '../components/pokemon'
 
-const TOTAL_POKEMON = 50
+const TOTAL_POKEMON = 25
 const NUM_OF_POKEMON_TO_SHOW = 16
 
+const pokemonObj = setupPokemon(TOTAL_POKEMON)
+
+function setupPokemon(amount = TOTAL_POKEMON) {
+    const result = {}
+
+    for (let i = 1; i < amount; i++) {
+        result[i] = false
+    }
+
+    return result
+}
+
+
 export default function Gameboard({ updateScore, resetScore }) {
-    const pokemonObj = setupPokemon(TOTAL_POKEMON)
+    // console.log("HAHA")
+    // console.log(sessionStorage)
+    const [pokemon, setPokemon] = useState(pokemonObj)
 
-    const [showPokemon, setShowPokemon] = useState(pokemonObj)
-
-    const pokemon = Object.entries(selectRandomPokemon()).map(([pokemonID, selected]) =>
+    const showPokemon = Object.entries(selectRandomPokemon()).map(([pokemonID, selected]) =>
         <li key={pokemonID}>
             <PokemonCard click={newPokemonSet} isSelected={selected} pokemonID={pokemonID}>
                 <Pokemon id={pokemonID} />
+                {/* <TestComponent num={pokemonID}/> */}
             </PokemonCard>
         </li>
     );
+
+    const storedValue = localStorage.getItem('key');
+    // console.log(storedValue)
 
     function selectRandomPokemonIDs(amount = NUM_OF_POKEMON_TO_SHOW) {
         const randomPokemon = []
@@ -30,42 +47,31 @@ export default function Gameboard({ updateScore, resetScore }) {
         return randomPokemon
     }
 
-    function setupPokemon(amount = TOTAL_POKEMON) {
-        const result = {}
-
-        for (let i = 1; i < amount; i++) {
-            result[i] = false
-        }
-
-        return result
-    }
-
     function selectRandomPokemon() {
         const newRandomSet = {}
         const randomIDArr = selectRandomPokemonIDs()
 
-        for (const [key, value] of Object.entries(showPokemon)) {
+        for (const [key, value] of Object.entries(pokemon)) {
             if (randomIDArr.includes(key)) newRandomSet[key] = value
         }
-        console.log(newRandomSet)
         return newRandomSet
     }
 
     function newPokemonSet(e) {
         let newSet
 
-        if (showPokemon[e]) {
-            newSet = { ...showPokemon }
+        if (pokemon[e]) {
+            newSet = { ...pokemon }
             resetScore()
             newSet = pokemonObj
         } else {
-            newSet = { ...showPokemon, [e]: true }
+            newSet = { ...pokemon, [e]: true }
             updateScore()
         }
 
-        setShowPokemon(newSet)
+        setPokemon(newSet)
 
     }
 
-    return <ul className='cards'>{pokemon}</ul>;
+    return <ul className='cards'>{showPokemon}</ul>;
 }

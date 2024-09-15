@@ -1,13 +1,51 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 import Gameboard from './components/Gameboard'
+import Score from './components/Score'
+import Header from './components/Header'
 
 
 function App() {
 
     const [currentScore, setCurrentScore] = useState(0)
     const [bestScore, setBestScore] = useState(0)
-
+    
+    const [data, setData] = useState(null);
+    const [doneLoading, setDoneLoading] = useState(false);
+    
+    // const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    
+    useEffect(() => {
+        // sessionStorage.clear()
+        async function retrieve() {
+            setDoneLoading(false); // Set loading state to true
+            
+            try {
+                for (let i=1; i < 30; i++) {
+                    let result = await fetch(`https://pokeapi.co/api/v2/pokemon/${i}`)
+                    let pokemon_data = await result.json()
+                    const objectString = JSON.stringify(pokemon_data)
+                    sessionStorage.setItem(i, objectString)
+                    // console.log(sessionStorage)
+                }
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        } finally {
+                setDoneLoading(true); // Set loading state to false
+            }
+        console.log("DONE")
+        }
+    
+        retrieve()
+        return () => {
+            setDoneLoading(true)
+        }
+    }, []);
+    
+    if (!doneLoading) {
+        return <div>Loading...</div>;
+    }
+    
     function updateScore() {
         setCurrentScore(currentScore + 1)
 
@@ -18,24 +56,22 @@ function App() {
         setCurrentScore(0)
     }
 
-    return (
-        <div>
-            <Score currentScore={currentScore} bestScore={bestScore} />
-            <Gameboard updateScore={updateScore} resetScore={resetScore} />
-        </div>
- )
+
+
+
+    // const storedValue = sessionStorage.getItem(1);
+    // const newObj = (JSON.parse(storedValue))
+    // console.log(newObj.name)
+    // console.log(sessionStorage)
+
+        return (
+            <div>
+                <Header/>
+                <Score currentScore={currentScore} bestScore={bestScore} />
+                {doneLoading && <Gameboard updateScore={updateScore} resetScore={resetScore} />}
+            </div>
+     )
 }
 
-function Score({ currentScore, bestScore }) {
-
-    return (
-        <>
-        <div className='scores'>
-            <h2>Current Score: {currentScore}</h2>
-            <h2>Best Score: {bestScore}</h2>
-        </div>
-        </>
-    )
-}
 
 export default App

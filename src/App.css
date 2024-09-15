@@ -1,8 +1,13 @@
 #root {
-  max-width: 1280px;
+  /* max-width: 1280px; */
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  background-color: rgb(79, 6, 6);
+}
+
+body {
+    background-color: rgb(79, 6, 6);
 }
 
 @keyframes logo-spin {
@@ -14,18 +19,39 @@
   }
 }
 
+/* HEADER */
+
+h1 {
+  color: rgb(249, 247, 243);
+  margin: 0;
+}
+
+/* CARDS */
+
 .card {
-  padding: 2em;
-  background-color: rgb(202, 193, 211);
-  border: solid rgb(228, 228, 106) 10px;
+  background-color: rgb(247, 222, 80);
+  border: solid rgb(245, 189, 6) 10px;
+  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }
 
 .cards {
   display: grid;
-  grid-template-columns: repeat(4, auto);
+  grid-template-columns: repeat(4, minmax(200px, 1fr));
   gap: 20px
 }
 
 ul {
   list-style-type: none;
+}
+
+/* SCORES */
+
+.scores {
+  display: flex;
+  justify-content: center;
+  gap: 3vw;
+}
+
+.scores h2 {
+  color: white
 }

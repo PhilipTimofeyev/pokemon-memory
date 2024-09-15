@@ -1,4 +1,4 @@
-
+import { memo } from 'react';
 
 export default function Card({ children, isSelected, pokemonID, click }) {
 
@@ -8,8 +8,10 @@ export default function Card({ children, isSelected, pokemonID, click }) {
 
     return (
         <div className="card" onClick={handleClick}>
-            <p>{isSelected && "Yay"}</p>
+            {/* <p>{isSelected && "Yay"}</p> */}
             {children}
         </div>
     );
 }
+
+
