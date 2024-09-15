@@ -6,7 +6,7 @@ export default function Header() {
 
     return (
         <>
-           <h1>Pokemon Memory Game</h1>
+           <h1>Pokemon Memory</h1>
         </>
     )
 }

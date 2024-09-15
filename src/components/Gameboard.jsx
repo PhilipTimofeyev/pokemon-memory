@@ -2,8 +2,8 @@ import { useState } from 'react'
 import PokemonCard from '../components/PokemonCard'
 import Pokemon from '../components/pokemon'
 
-const TOTAL_POKEMON = 64
-const NUM_OF_POKEMON_TO_SHOW = 16
+const TOTAL_POKEMON = 106
+const NUM_OF_POKEMON_TO_SHOW = 9
 
 const pokemonObj = setupPokemon(TOTAL_POKEMON)
 
@@ -25,13 +25,11 @@ export default function Gameboard({ updateScore, resetScore }) {
         <li key={pokemonID}>
             <PokemonCard click={newPokemonSet} isSelected={selected} pokemonID={pokemonID}>
                 <Pokemon id={pokemonID} />
-                {/* <TestComponent num={pokemonID}/> */}
             </PokemonCard>
         </li>
     );
 
     const storedValue = localStorage.getItem('key');
-    // console.log(storedValue)
 
     function selectRandomPokemonIDs(amount = NUM_OF_POKEMON_TO_SHOW) {
         const randomPokemon = []
@@ -49,9 +47,17 @@ export default function Gameboard({ updateScore, resetScore }) {
         const newRandomSet = {}
         const randomIDArr = selectRandomPokemonIDs()
 
+        console.log(randomIDArr)
+        
         for (const [key, value] of Object.entries(pokemon)) {
             if (randomIDArr.includes(key)) newRandomSet[key] = value
         }
+
+        randomIDArr.forEach((id) => {
+            console.log(id)
+            newRandomSet[id] = pokemon[id]
+        })
+        console.log(newRandomSet)
         return newRandomSet
     }
 
