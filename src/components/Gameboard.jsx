@@ -2,7 +2,7 @@ import { useState } from 'react'
 import PokemonCard from '../components/PokemonCard'
 import Pokemon from '../components/pokemon'
 
-const TOTAL_POKEMON = 25
+const TOTAL_POKEMON = 64
 const NUM_OF_POKEMON_TO_SHOW = 16
 
 const pokemonObj = setupPokemon(TOTAL_POKEMON)
@@ -19,8 +19,6 @@ function setupPokemon(amount = TOTAL_POKEMON) {
 
 
 export default function Gameboard({ updateScore, resetScore }) {
-    // console.log("HAHA")
-    // console.log(sessionStorage)
     const [pokemon, setPokemon] = useState(pokemonObj)
 
     const showPokemon = Object.entries(selectRandomPokemon()).map(([pokemonID, selected]) =>

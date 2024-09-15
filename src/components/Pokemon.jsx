@@ -4,14 +4,16 @@ import React, { useEffect, useState } from "react";
 
 const Pokemon = (props) => {
     console.log("NO WAY")
+    console.log(sessionStorage)
     const storedValue = sessionStorage.getItem(props.id);
     // console.log(sessionStorage)
     const newObj = (JSON.parse(storedValue))
-
+    // console.log("Here")
+    console.log(newObj.name)
     const pokemon = (
         <div>
             <h2>{newObj.name}</h2>
-            <img src={newObj.sprites.front_default} width='150px' />
+            <img src={newObj.image} width='150px' />
         </div>
     )
 

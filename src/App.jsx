@@ -21,10 +21,13 @@ function App() {
             setDoneLoading(false); // Set loading state to true
             
             try {
-                for (let i=1; i < 30; i++) {
+                for (let i=1; i < 64; i++) {
                     let result = await fetch(`https://pokeapi.co/api/v2/pokemon/${i}`)
                     let pokemon_data = await result.json()
-                    const objectString = JSON.stringify(pokemon_data)
+                    const pokeData = { name: pokemon_data.name, image: pokemon_data.sprites.front_default }
+                    console.log(pokeData)
+                    const objectString = JSON.stringify(pokeData)
+                    console.log(objectString)
                     sessionStorage.setItem(i, objectString)
                     // console.log(sessionStorage)
                 }
@@ -56,13 +59,6 @@ function App() {
         setCurrentScore(0)
     }
 
-
-
-
-    // const storedValue = sessionStorage.getItem(1);
-    // const newObj = (JSON.parse(storedValue))
-    // console.log(newObj.name)
-    // console.log(sessionStorage)
 
         return (
             <div>
