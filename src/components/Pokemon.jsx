@@ -8,8 +8,8 @@ export default function Pokemon(props) {
 
     const pokemon = (
         <div>
-            <h2>{capitalName}</h2>
-            <img src={newObj.image} width='150px' />
+            <p>{capitalName}</p>
+            <img src={newObj.image} />
         </div>
     )
 

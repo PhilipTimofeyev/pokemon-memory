@@ -22,11 +22,11 @@ export default function Gameboard({ updateScore, resetScore }) {
     const [pokemon, setPokemon] = useState(pokemonObj)
 
     const showPokemon = Object.entries(selectRandomPokemon()).map(([pokemonID, selected]) =>
-        <li key={pokemonID}>
-            <PokemonCard click={newPokemonSet} pokemonID={pokemonID}>
-                <Pokemon id={pokemonID} />
-            </PokemonCard>
-        </li>
+            <li key={pokemonID}>
+                <PokemonCard click={newPokemonSet} pokemonID={pokemonID}>
+                    <Pokemon id={pokemonID} />
+                </PokemonCard>
+            </li>
     );
 
     const storedValue = localStorage.getItem('key');
@@ -77,5 +77,9 @@ export default function Gameboard({ updateScore, resetScore }) {
 
     }
 
-    return <ul className='cards'>{showPokemon}</ul>;
+    return (
+        <div className="gameboard">
+            <ul className='cards'>{showPokemon}</ul>
+        </div>
+    );
 }
