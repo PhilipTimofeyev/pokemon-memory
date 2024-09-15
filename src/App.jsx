@@ -11,14 +11,12 @@ function App() {
     const [currentScore, setCurrentScore] = useState(0)
     const [bestScore, setBestScore] = useState(0)
     
-    const [data, setData] = useState(null);
     const [doneLoading, setDoneLoading] = useState(false);
 
     
     useEffect(() => {
         async function retrieve() {
             setDoneLoading(false); 
-            
             try {
                 for (let i=1; i < 106; i++) {
                     let result = await fetch(`https://pokeapi.co/api/v2/pokemon/${i}`)
@@ -35,9 +33,6 @@ function App() {
         }
     
         retrieve()
-        // return () => {
-        //     setDoneLoading(true)
-        // }
     }, []);
     
     if (!doneLoading) {
@@ -54,13 +49,12 @@ function App() {
         setCurrentScore(0)
     }
 
-
-        return (
-            <div>
-                <Header/>
-                <Score currentScore={currentScore} bestScore={bestScore} />
-                {doneLoading && <Gameboard updateScore={updateScore} resetScore={resetScore} />}
-            </div>
+    return (
+        <div>
+            <Header/>
+            <Score currentScore={currentScore} bestScore={bestScore} />
+            {doneLoading && <Gameboard updateScore={updateScore} resetScore={resetScore} />}
+        </div>
      )
 }
 

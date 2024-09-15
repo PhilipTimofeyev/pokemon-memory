@@ -23,7 +23,7 @@ export default function Gameboard({ updateScore, resetScore }) {
 
     const showPokemon = Object.entries(selectRandomPokemon()).map(([pokemonID, selected]) =>
         <li key={pokemonID}>
-            <PokemonCard click={newPokemonSet} isSelected={selected} pokemonID={pokemonID}>
+            <PokemonCard click={newPokemonSet} pokemonID={pokemonID}>
                 <Pokemon id={pokemonID} />
             </PokemonCard>
         </li>
