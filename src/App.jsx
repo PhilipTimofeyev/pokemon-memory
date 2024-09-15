@@ -22,6 +22,10 @@ function App() {
                     let result = await fetch(`https://pokeapi.co/api/v2/pokemon/${i}`)
                     let pokemon_data = await result.json()
                     const pokeData = { name: pokemon_data.name, image: pokemon_data.sprites.front_default }
+                    const img = new Image();
+
+                    img.src = pokeData.image;
+                    
                     const objectString = JSON.stringify(pokeData)
                     sessionStorage.setItem(i, objectString)
                 }
@@ -33,6 +37,7 @@ function App() {
         }
     
         retrieve()
+        return () => {sessionStorage.clear()}
     }, []);
     
     if (!doneLoading) {
