@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import PokemonCard from '../components/PokemonCard'
-import Pokemon from '../components/pokemon'
+import Pokemon from '../components/Pokemon'
 
 const TOTAL_POKEMON = 106
 const NUM_OF_POKEMON_TO_SHOW = 9

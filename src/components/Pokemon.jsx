@@ -1,5 +1,5 @@
 
-const Pokemon = (props) => {
+export default function Pokemon(props) {
     const storedValue = sessionStorage.getItem(props.id);
     const newObj = (JSON.parse(storedValue))
 
@@ -17,4 +17,4 @@ const Pokemon = (props) => {
 }
 
 
-export default Pokemon
+// export default Pokemon
